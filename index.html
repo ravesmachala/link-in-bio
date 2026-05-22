@@ -4,19 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raves Machala</title>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VFH0QT9ELY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-VFH0QT9ELY');
-
     function trackClick(eventName) {
-      gtag('event', 'click', {
-        event_category: 'link_in_bio',
-        event_label: eventName
-      });
+      gtag('event', 'click', { event_category: 'link_in_bio', event_label: eventName });
     }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +30,7 @@
       --font-body: 'Bricolage Grotesque', sans-serif;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       min-height: 100%;
@@ -84,11 +76,7 @@
       max-width: 320px;
       animation: fadeDown 0.7s ease both;
     }
-
-    .logo-wrap svg {
-      width: 100%;
-      height: auto;
-    }
+    .logo-wrap svg { width: 100%; height: auto; }
 
     /* ── BIO ── */
     .bio {
@@ -104,87 +92,139 @@
       margin-top: -32px;
     }
 
-    /* ── EVENTO ── */
-    .event-section {
-      width: 100%;
-      animation: fadeDown 0.7s 0.2s ease both;
-    }
-
+    /* ── SECTION LABEL ── */
     .section-label {
       font-size: 0.6rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--lime);
       font-weight: 400;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       font-family: var(--font-body);
     }
 
-    .event-card {
-      border: 1px solid var(--gray-border);
-      border-radius: 4px;
-      padding: 24px;
+    /* ── EVENTOS ── */
+    .event-section {
+      width: 100%;
+      animation: fadeDown 0.7s 0.2s ease both;
+    }
+
+    .events-list {
       display: flex;
       flex-direction: column;
       gap: 16px;
-      background: var(--gray);
+    }
+
+    /* Tarjeta con imagen */
+    .event-card {
       position: relative;
+      border-radius: 6px;
       overflow: hidden;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      cursor: default;
     }
 
-    .event-card::before {
-      content: '';
+    .event-card__bg {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--lime);
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      transition: transform 0.5s ease;
     }
 
-    .event-name {
+    .event-card:hover .event-card__bg {
+      transform: scale(1.04);
+    }
+
+    /* Overlay degradado de abajo hacia arriba */
+    .event-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8,8,8,0.97) 0%,
+        rgba(8,8,8,0.75) 45%,
+        rgba(8,8,8,0.15) 100%
+      );
+    }
+
+    .event-card__content {
+      position: relative;
+      z-index: 1;
+      padding: 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .event-card__tag {
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 4px;
+    }
+
+    .event-card__name {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 2rem;
+      font-size: 1.5rem;
       letter-spacing: 0.02em;
       color: var(--white);
       line-height: 1.05;
       text-transform: uppercase;
-      margin-bottom: 10px;
     }
 
-    .event-date {
-      font-size: 0.7rem;
+    .event-card__date {
+      font-size: 0.65rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--white-dim);
       font-family: var(--font-body);
       font-weight: 300;
+      margin-bottom: 12px;
     }
 
-    .event-btn {
+    .event-card__btn {
       display: inline-block;
+      align-self: flex-start;
       background: var(--lime);
       color: var(--black);
       font-family: var(--font-display);
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      padding: 13px 20px;
+      padding: 10px 18px;
       border-radius: 2px;
-      text-align: center;
       transition: opacity 0.2s ease, transform 0.15s ease;
     }
 
-    .event-btn:hover {
+    .event-card__btn:hover {
       opacity: 0.85;
       transform: translateY(-1px);
     }
 
-    .event-btn:active {
-      transform: translateY(0);
+    .event-card__btn--soon {
+      display: inline-block;
+      align-self: flex-start;
+      background: transparent;
+      color: var(--white-dim);
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 2px;
+      border: 1px solid var(--gray-border);
+      cursor: default;
     }
 
     /* ── SOCIAL ICONS ── */
@@ -215,21 +255,12 @@
       transition: color 0.2s ease, transform 0.2s ease;
     }
 
-    .social-link:hover {
-      color: var(--lime);
-      transform: translateY(-3px);
-    }
-
-    .social-link:hover .icon-wrap {
-      border-color: var(--lime);
-    }
-
+    .social-link:hover { color: var(--lime); transform: translateY(-3px); }
+    .social-link:hover .icon-wrap { border-color: var(--lime); }
     .social-link:hover svg path,
     .social-link:hover svg rect,
     .social-link:hover svg circle,
-    .social-link:hover svg polygon {
-      fill: var(--lime);
-    }
+    .social-link:hover svg polygon { fill: var(--lime); }
 
     .icon-wrap {
       width: 52px;
@@ -243,18 +274,11 @@
       background: var(--gray);
     }
 
-    .icon-wrap svg {
-      width: 22px;
-      height: 22px;
-    }
-
+    .icon-wrap svg { width: 22px; height: 22px; }
     .icon-wrap svg path,
     .icon-wrap svg rect,
     .icon-wrap svg circle,
-    .icon-wrap svg polygon {
-      fill: var(--white);
-      transition: fill 0.2s ease;
-    }
+    .icon-wrap svg polygon { fill: var(--white); transition: fill 0.2s ease; }
 
     /* ── FOOTER ── */
     .footer {
@@ -276,9 +300,10 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 400px) {
       body { padding: 40px 16px 60px; }
-      .event-name { font-size: 1.6rem; }
       .logo-wrap { max-width: 260px; }
       .social-icons { gap: 20px; }
+      .event-card__name { font-size: 1.25rem; }
+      .event-card { min-height: 180px; }
     }
   </style>
 </head>
@@ -288,12 +313,7 @@
     <!-- LOGO -->
     <div class="logo-wrap">
       <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 782.77 350.06">
-        <defs>
-          <style>
-            .cls-1 { fill: #fff; }
-            .cls-2 { fill: #ceff00; }
-          </style>
-        </defs>
+        <defs><style>.cls-1{fill:#fff}.cls-2{fill:#ceff00}</style></defs>
         <path class="cls-1" d="m391.39,350.06c-106.26,0-203.36-15.87-273.41-44.68-36.6-15.05-65.27-33.31-85.2-54.25C11.03,228.29,0,202.69,0,175.03s11.03-53.26,32.77-76.11c19.93-20.94,48.6-39.19,85.2-54.25C188.03,15.87,285.13,0,391.39,0s203.4,15.85,273.41,44.63c36.61,15.05,65.27,33.3,85.21,54.24,21.75,22.85,32.77,48.48,32.77,76.16s-11.03,53.26-32.77,76.11c-19.93,20.94-48.6,39.19-85.2,54.25-70.05,28.81-167.15,44.68-273.41,44.68Zm0-329.59c-103.65,0-197.98,15.32-265.62,43.14-48.03,19.76-105.29,55.12-105.29,111.42s57.26,91.67,105.29,111.42c67.64,27.82,161.97,43.14,265.62,43.14s197.98-15.32,265.62-43.14c48.03-19.76,105.29-55.12,105.29-111.42s-57.26-91.73-105.29-111.47c-67.6-27.79-161.93-43.09-265.62-43.09Z"/>
         <g>
           <g>
@@ -308,17 +328,79 @@
     <!-- BIO -->
     <p class="bio">Promoting the electronic music scene<br>in the Banana Capital of The World<br>since 2019</p>
 
-    <!-- EVENTO -->
+    <!-- EVENTOS -->
     <div class="event-section">
-      <p class="section-label">// Próximo evento</p>
-      <div class="event-card">
-        <div>
-          <div class="event-name">Block Party Machala — 2nd Edition</div>
-          <div class="event-date">30 · Mayo · 2026 — Machala, Ecuador</div>
+      <p class="section-label">// Eventos recomendados</p>
+      <div class="events-list">
+
+        <!-- Block Party -->
+        <div class="event-card">
+          <div class="event-card__bg" style="background-image: url('block-party.jpg')"></div>
+          <div class="event-card__overlay"></div>
+          <div class="event-card__content">
+            <span class="event-card__tag">30 · Mayo · 2026</span>
+            <div class="event-card__name">Block Party Machala — 2nd Edition</div>
+            <div class="event-card__date">Machala, Ecuador</div>
+            <a class="event-card__btn" href="https://www.buenplan.com.ec/event/block-party-machala-2026" target="_blank" rel="noopener" onclick="trackClick('cta_entradas_block_party_2nd_edition')">
+              Comprar entradas →
+            </a>
+          </div>
         </div>
-        <a class="event-btn" href="https://www.buenplan.com.ec/event/block-party-machala-2026" target="_blank" rel="noopener" onclick="trackClick('cta_entradas_block_party_2nd_edition')">
-          Comprar entradas →
-        </a>
+
+        <!-- Tico -->
+        <div class="event-card">
+          <div class="event-card__bg" style="background-image: url('tico.jpg')"></div>
+          <div class="event-card__overlay"></div>
+          <div class="event-card__content">
+            <span class="event-card__tag">Viernes 5 · Junio · 2026</span>
+            <div class="event-card__name">Showbiz x Bloom presentan: Tico</div>
+            <div class="event-card__date">Machala, Ecuador</div>
+            <a class="event-card__btn" href="https://bubbl.so/event/public/UxBXgbT97FR4dhoR85mi?sharedByID=0UWAxbEctHcq1qmQ7dsxB8bqxmZ2" target="_blank" rel="noopener" onclick="trackClick('cta_entradas_tico')">
+              Comprar entradas →
+            </a>
+          </div>
+        </div>
+
+        <!-- Supernova -->
+        <div class="event-card">
+          <div class="event-card__bg" style="background-image: url('supernova.jpg')"></div>
+          <div class="event-card__overlay"></div>
+          <div class="event-card__content">
+            <span class="event-card__tag">Viernes 12 · Junio · 2026</span>
+            <div class="event-card__name">Showbiz presenta: Supernova</div>
+            <div class="event-card__date">Machala, Ecuador</div>
+            <span class="event-card__btn--soon">Próximamente</span>
+          </div>
+        </div>
+
+        <!-- Gala -->
+        <div class="event-card">
+          <div class="event-card__bg" style="background-image: url('gala.jpg')"></div>
+          <div class="event-card__overlay"></div>
+          <div class="event-card__content">
+            <span class="event-card__tag">Viernes 19 · Junio · 2026</span>
+            <div class="event-card__name">Showbiz presenta: Gala</div>
+            <div class="event-card__date">Machala, Ecuador</div>
+            <a class="event-card__btn" href="https://www.buenplan.com.ec/event/gala-2026-machala" target="_blank" rel="noopener" onclick="trackClick('cta_entradas_gala')">
+              Comprar entradas →
+            </a>
+          </div>
+        </div>
+
+        <!-- Brisotti -->
+        <div class="event-card">
+          <div class="event-card__bg" style="background-image: url('brisotti.jpg')"></div>
+          <div class="event-card__overlay"></div>
+          <div class="event-card__content">
+            <span class="event-card__tag">Viernes 26 · Junio · 2026</span>
+            <div class="event-card__name">Showbiz presenta: Brisotti</div>
+            <div class="event-card__date">Machala, Ecuador</div>
+            <a class="event-card__btn" href="https://www.buenplan.com.ec/event/brisotti-2026-machala" target="_blank" rel="noopener" onclick="trackClick('cta_entradas_brisotti')">
+              Comprar entradas →
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -327,52 +409,37 @@
       <p class="section-label" style="text-align:center; margin-bottom:20px;">// Síguenos</p>
       <div class="social-icons">
 
-        <!-- Instagram -->
         <a class="social-link" href="https://www.instagram.com/ravesmachala" target="_blank" rel="noopener" aria-label="Instagram" onclick="trackClick('social_instagram')">
           <div class="icon-wrap">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </div>
           Instagram
         </a>
 
-        <!-- Facebook -->
         <a class="social-link" href="https://www.facebook.com/ravesmachala" target="_blank" rel="noopener" aria-label="Facebook" onclick="trackClick('social_facebook')">
           <div class="icon-wrap">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </div>
           Facebook
         </a>
 
-        <!-- TikTok -->
         <a class="social-link" href="https://tiktok.com/@ravesmachala" target="_blank" rel="noopener" aria-label="TikTok" onclick="trackClick('social_tiktok')">
           <div class="icon-wrap">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
           </div>
           TikTok
         </a>
 
-        <!-- Spotify -->
         <a class="social-link" href="https://open.spotify.com/user/i5e3eztn0vjytfhc1m2y1k1bq?si=cc63ccea3177494e" target="_blank" rel="noopener" aria-label="Spotify" onclick="trackClick('social_spotify')">
           <div class="icon-wrap">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
           </div>
           Spotify
         </a>
 
-        <!-- Email -->
         <a class="social-link" href="mailto:hola@ravesmachala.com" aria-label="Email" onclick="trackClick('social_email')">
           <div class="icon-wrap">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           </div>
           Email
         </a>
