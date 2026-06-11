@@ -142,34 +142,43 @@
     .event-card {
       position: relative;
       border-radius: 6px;
-      overflow: hidden;
+      overflow: visible;
       min-height: 200px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       cursor: default;
       border: 1px solid transparent;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* Tarjeta destacada */
-    .event-card--featured {
+    /* Clip interno para la imagen y overlay */
+    .event-card__bg,
+    .event-card__overlay {
+      border-radius: 6px;
+    }
+
+    /* Hover borde lima en todas */
+    .event-card:hover {
       border-color: var(--lime);
-      box-shadow: 0 0 24px rgba(206, 255, 0, 0.12);
+      box-shadow: 0 0 20px rgba(206, 255, 0, 0.1);
     }
 
-    .event-card__badge {
-      display: inline-block;
-      background: var(--lime);
-      color: var(--black);
-      font-family: var(--font-display);
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 2px;
-      margin-bottom: 8px;
-      align-self: flex-start;
+    /* Tarjeta destacada más grande */
+    .event-card--featured {
+      min-height: 260px;
+    }
+
+    /* Emoji 🔥 flotando fuera de la tarjeta */
+    .event-card__fire {
+      position: absolute;
+      top: -14px;
+      right: 12px;
+      font-size: 1.6rem;
+      z-index: 10;
+      line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+      pointer-events: none;
     }
 
     .event-card__bg {
@@ -178,6 +187,8 @@
       background-size: cover;
       background-position: center top;
       transition: transform 0.5s ease;
+      border-radius: 6px;
+      overflow: hidden;
     }
 
     .event-card:hover .event-card__bg {
@@ -188,6 +199,7 @@
     .event-card__overlay {
       position: absolute;
       inset: 0;
+      border-radius: 6px;
       background: linear-gradient(
         to top,
         rgba(8,8,8,0.97) 0%,
@@ -380,10 +392,10 @@
 
         <!-- Supernova -->
         <div class="event-card event-card--featured">
+          <span class="event-card__fire">🔥</span>
           <div class="event-card__bg" style="background-image: url('supernova.jpg')"></div>
           <div class="event-card__overlay"></div>
           <div class="event-card__content">
-            <span class="event-card__badge">// Próximo evento</span>
             <span class="event-card__tag">Viernes 12 · Junio · 2026</span>
             <div class="event-card__name">Showbiz presenta: Supernova</div>
             <div class="event-card__date">Machala, Ecuador</div>
