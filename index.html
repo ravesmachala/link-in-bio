@@ -178,7 +178,44 @@
       z-index: 10;
       line-height: 1;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+      cursor: pointer;
+    }
+
+    /* Tooltip HOT RIGHT NOW */
+    .event-card__fire::after {
+      content: 'HOT RIGHT NOW';
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #e63329;
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      padding: 5px 10px;
+      border-radius: 2px;
+      opacity: 0;
       pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .event-card__fire:hover::after,
+    .event-card__fire.show-tooltip::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Active state en tarjetas para mobile */
+    .event-card:active {
+      border-color: var(--lime);
+      box-shadow: 0 0 20px rgba(206, 255, 0, 0.1);
+    }
+
+    .event-card:active .event-card__bg {
+      transform: scale(1.04);
     }
 
     .event-card__bg {
@@ -363,6 +400,18 @@
       .event-card { min-height: 180px; }
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const fireEmoji = document.querySelector('.event-card__fire');
+      if (fireEmoji) {
+        fireEmoji.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          this.classList.add('show-tooltip');
+          setTimeout(() => this.classList.remove('show-tooltip'), 2000);
+        });
+      }
+    });
+  </script>
 </head>
 <body>
   <div class="container">
