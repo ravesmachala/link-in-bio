@@ -675,14 +675,20 @@
 
     function updateCountdowns() {
       const now = new Date();
-      EVENTS.forEach((ev, i) => {
+
+      // Usar los mismos eventos visibles que renderEvents
+      const visible = EVENTS.filter(ev => {
+        const hideAt = new Date(ev.startUTC.getTime() + ev.hideAfterHours * 3600000);
+        return now < hideAt;
+      });
+
+      visible.forEach((ev, i) => {
         const el = document.getElementById(`countdown-${i}`);
         if (!el) return;
 
         const diff = ev.startUTC - now;
         if (diff <= 0) {
           el.innerHTML = '<span class="countdown-inline--expired">¡El evento ha comenzado!</span>';
-          // Re-renderizar después de hideAfterHours para mostrar siguiente evento
           const hideAt = new Date(ev.startUTC.getTime() + ev.hideAfterHours * 3600000);
           if (now >= hideAt) renderEvents();
           return;
